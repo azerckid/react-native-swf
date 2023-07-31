@@ -1,8 +1,23 @@
-import React, { useRef, useState } from "react";
-import { Animated, PanResponder, Text, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Animated, PanResponder, Text, View, Image } from "react-native";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
 import icons from "./icons";
+
+// const images = [
+//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/1.jpg",
+//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/2.jpg",
+//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/3.jpg",
+//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/4.jpg",
+//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/5.jpg",
+//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/6.jpg",
+//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/7.jpg",
+//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/8.jpg",
+//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/9.jpg",
+//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/10.jpg",
+// ];
+
+let images = [];
 
 const Container = styled.View`
   flex: 1;
@@ -39,6 +54,30 @@ const CardContainer = styled.View`
 `;
 
 export default function App() {
+  const [data, setData] = useState();
+
+  const getNFTMetaDatas = async () => {
+    const url =
+      "https://port-0-swf-account-gen-server-ac2nlkqytzhi.sel4.cloudtype.app/getNftMetadata/accountAddress/nftContractAddress";
+    try {
+      const response = await fetch(url);
+      const responseData = await response.json();
+      // for (let i = 0; i < responseData.length; i++) {
+      //   console.log("responseData", responseData[i].image);
+      // }
+      images = responseData.map(
+        (item) => "https://ipfs.io/ipfs/" + item.image.substring(7)
+      );
+      console.log("images", images);
+      setData(responseData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    getNFTMetaDatas();
+  }, []);
+
   // Values
   const scale = useRef(new Animated.Value(1)).current;
   const position = useRef(new Animated.Value(0)).current;
@@ -101,8 +140,11 @@ export default function App() {
   const [index, setIndex] = useState(0);
   const onDismiss = () => {
     scale.setValue(1);
-    setIndex((prev) => prev + 1);
+    setIndex((prev) => (prev + 1) % images.length); // 이미지 배열의 길이를 이용해서 인덱스를 업데이트합니다.
     position.setValue(0);
+    // scale.setValue(1);
+    // setIndex((prev) => prev + 1);
+    // position.setValue(0);
     // Animated.timing(position, { toValue: 0, useNativeDriver: true }).start();
   };
   const closePress = () => {
@@ -115,7 +157,10 @@ export default function App() {
     <Container>
       <CardContainer>
         <Card style={{ transform: [{ scale: secondScale }] }}>
-          <Ionicons name={icons[index + 1]} color="#192a56" size={98} />
+          <Image
+            source={{ uri: images[(index + 1) % images.length] }}
+            style={{ width: 350, height: 500 }}
+          />
         </Card>
         <Card
           {...panResponder.panHandlers}
@@ -127,8 +172,10 @@ export default function App() {
             ],
           }}
         >
-          <Ionicons name={icons[index]} color="#192a56" size={98} />
-          {/* <Ionicons name="airplane-outline" color="#192a56" size={98} /> */}
+          <Image
+            source={{ uri: images[index] }}
+            style={{ width: 350, height: 500 }}
+          />
         </Card>
       </CardContainer>
       <BtnContainer>

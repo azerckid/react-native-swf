@@ -28,7 +28,8 @@ const Address = () => {
   const [data, setData] = useState(null);
 
   const handleGenerateKeys = async () => {
-    const url = "http://172.30.1.76:5000/generateKeys";
+    const url =
+      "https://port-0-swf-account-gen-server-ac2nlkqytzhi.sel4.cloudtype.app/generateKeys";
     try {
       const response = await fetch(url);
       const responseData = await response.json();
@@ -46,8 +47,10 @@ const Address = () => {
       </Btn>
       {data && (
         <View>
-          <Text>Returned Data:</Text>
-          <Text>{JSON.stringify(data, null, 2)}</Text>
+          <Text>ADDRESS</Text>
+          <Text>{JSON.stringify(data.address)}</Text>
+          <Text>PRIVATE KEY</Text>
+          <Text>{JSON.stringify(data.privateKey)}</Text>
         </View>
       )}
     </View>
