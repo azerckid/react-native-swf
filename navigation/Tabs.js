@@ -5,6 +5,8 @@ import Address from "../screens/Address";
 import NFT from "../screens/NFT";
 import Search from "../screens/Search";
 import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { BLACK_COLOR, DARK_GREY, LIGHT_GREY, YELLOW_COLOR } from "../colors";
 
@@ -40,7 +42,8 @@ const Tabs = () => {
         component={Address}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name={"film-outline"} color={color} size={size} />
+            // <Ionicons name={"film-outline"} color={color} size={size} />
+            <FontAwesome name="address-card-o" size={24} color="black" />
           ),
         }}
       />
@@ -49,7 +52,12 @@ const Tabs = () => {
         component={NFT}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="tv-outline" color={color} size={size} />
+            // <Ionicons name="tv-outline" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="certificate-outline"
+              size={24}
+              color="black"
+            />
           ),
         }}
       />

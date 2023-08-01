@@ -1,21 +1,24 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Linking } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  SafeAreaView,
+} from "react-native";
 import styled from "styled-components/native";
+import QRCode from "react-native-qrcode-svg";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const Btn = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
   background-color: #007bff;
   padding: 20px;
   border-radius: 5px;
-  /* Adjust width and height here */
-  width: 50%;
-  height: 200%;
-  /* Center the button horizontally and vertically */
+  width: 80%;
   align-self: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
 `;
 
 const Title = styled.Text`
@@ -24,8 +27,29 @@ const Title = styled.Text`
   font-weight: bold;
 `;
 
+const AddressTitle = styled.Text`
+  margin-top: 20px;
+  margin: 10px;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+const KeyTitle = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px;
+  margin-top: 20px;
+`;
+
+const KeyText = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
+`;
+
 const Address = () => {
   const [data, setData] = useState(null);
+  const [isKeyVisible, setIsKeyVisible] = useState(false);
 
   const handleGenerateKeys = async () => {
     const url =
@@ -40,20 +64,30 @@ const Address = () => {
     }
   };
 
+  const toggleKeyVisibility = () => {
+    setIsKeyVisible(!isKeyVisible);
+  };
+
   return (
-    <View>
+    <SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
       <Btn onPress={handleGenerateKeys}>
         <Title>Generate Keys</Title>
       </Btn>
       {data && (
-        <View>
-          <Text>ADDRESS</Text>
+        <View style={{ alignItems: "center" }}>
+          <AddressTitle>ADDRESS</AddressTitle>
           <Text>{JSON.stringify(data.address)}</Text>
-          <Text>PRIVATE KEY</Text>
-          <Text>{JSON.stringify(data.privateKey)}</Text>
+          <QRCode value={JSON.stringify(data.address)} size={200} />
+          <KeyTitle>
+            <KeyText>PRIVATE KEY</KeyText>
+            <TouchableOpacity onPress={toggleKeyVisibility}>
+              <Icon name="eye" size={20} color="red" />
+            </TouchableOpacity>
+          </KeyTitle>
+          {isKeyVisible && <Text>{JSON.stringify(data.privateKey)}</Text>}
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Animated, PanResponder, Text, View, Image } from "react-native";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
-import icons from "./icons";
+// import icons from "./iconsOld";
 
 // const images = [
 //   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/1.jpg",
@@ -74,6 +74,7 @@ export default function App() {
       console.error("Error fetching data:", error);
     }
   };
+
   useEffect(() => {
     getNFTMetaDatas();
   }, []);
