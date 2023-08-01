@@ -42,9 +42,11 @@ const KeyTitle = styled.View`
 `;
 
 const KeyText = styled.Text`
+  margin-right: 10px;
   font-size: 16px;
   font-weight: bold;
   color: red;
+  opacity: 0.3;
 `;
 
 const Address = () => {
@@ -81,7 +83,7 @@ const Address = () => {
           <KeyTitle>
             <KeyText>PRIVATE KEY</KeyText>
             <TouchableOpacity onPress={toggleKeyVisibility}>
-              <Icon name="eye" size={20} color="red" />
+              <Icon name="eye" size={20} color="red" style={{ opacity: 0.3 }} />
             </TouchableOpacity>
           </KeyTitle>
           {isKeyVisible && <Text>{JSON.stringify(data.privateKey)}</Text>}

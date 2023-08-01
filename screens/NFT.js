@@ -2,20 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Animated, PanResponder, Text, View, Image } from "react-native";
 import styled from "styled-components/native";
 import { Ionicons } from "@expo/vector-icons";
-// import icons from "./iconsOld";
-
-// const images = [
-//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/1.jpg",
-//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/2.jpg",
-//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/3.jpg",
-//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/4.jpg",
-//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/5.jpg",
-//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/6.jpg",
-//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/7.jpg",
-//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/8.jpg",
-//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/9.jpg",
-//   "https://ipfs.io/ipfs/QmdxvFeJgTHR8GJCJDFgmm4CWAj5vTdcZJpucsnewDbjnY/10.jpg",
-// ];
 
 let images = [];
 
